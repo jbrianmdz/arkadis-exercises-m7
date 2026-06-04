@@ -30,11 +30,9 @@ A continuación el código del archivo **HolaRevit.addin**
 	</AddIn>
 </RevitAddIns>
 ```
-
- 
+  
 A continuación el **código del proyecto**:
-
-
+  
 ```xml
 <Project Sdk="Microsoft.NET.Sdk">
 
