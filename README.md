@@ -27,7 +27,7 @@ A continuación el código del archivo **HolaRevit.addin**
 		<Text>Hola Revit</Text>
 	</AddIn>
 </RevitAddIns>
-```html
+```xml
  
 A continuación el **código del proyecto**:
 
@@ -79,5 +79,5 @@ A continuación el **código del proyecto**:
 	</ItemGroup>
 
 </Project>
-```
+```html
 
