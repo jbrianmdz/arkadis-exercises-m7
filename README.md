@@ -5,11 +5,11 @@ Ejercicios para la Especialización internacional  BIM en Programación Visual y
 
 Para usar el código para cada caso es bueno entender que el código Command.cs se reparte de la siguiente manera:
 
-**Caso 01** es Command_Caso01.cs
-**Caso 02** es Command_Caso02.cs
-**Caso 03** es Command_Caso02.cs
-**Caso 04** es Command_Caso02.cs
-**Caso 05** es Command_Caso02.cs
+- **Caso 01** es Command_Caso01.cs
+- **Caso 02** es Command_Caso02.cs
+- **Caso 03** es Command_Caso03.cs
+- **Caso 04** es Command_Caso04.cs
+- **Caso 05** es Command_Caso05.cs
 
 <img width="717" height="534" alt="image" src="https://github.com/user-attachments/assets/f8229bd4-f7ac-4584-9422-e8e14c3949be" />
 
