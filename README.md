@@ -1,19 +1,21 @@
 # arkadis-exercises-m7
 Ejercicios para la Especialización internacional  BIM en Programación Visual y Automatización con IA
 
+**Software: Revit 2026**
+
 Para usar el código para cada caso es bueno entender que el código Command.cs se reparte de la siguiente manera:
 
-Caso 01 es Command_Caso01.cs
-Caso 02 es Command_Caso02.cs
-Caso 03 es Command_Caso02.cs
-Caso 04 es Command_Caso02.cs
-Caso 05 es Command_Caso02.cs
+**Caso 01** es Command_Caso01.cs
+**Caso 02** es Command_Caso02.cs
+**Caso 03** es Command_Caso02.cs
+**Caso 04** es Command_Caso02.cs
+**Caso 05** es Command_Caso02.cs
 
 <img width="717" height="534" alt="image" src="https://github.com/user-attachments/assets/f8229bd4-f7ac-4584-9422-e8e14c3949be" />
 
-A continuación el código del archivo HolaRevit.addin
+A continuación el código del archivo **HolaRevit.addin**
 
- ``` 
+```
 <?xml version="1.0" encoding="utf-8"?>
 <RevitAddIns>
 	<AddIn Type="Command">
@@ -25,11 +27,11 @@ A continuación el código del archivo HolaRevit.addin
 		<Text>Hola Revit</Text>
 	</AddIn>
 </RevitAddIns>
- ``` 
+```html
  
-A continuación el código del proyecto:
+A continuación el **código del proyecto**:
 
- ``` 
+```
 <Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
@@ -77,5 +79,5 @@ A continuación el código del proyecto:
 	</ItemGroup>
 
 </Project>
- ``` 
+```
 
