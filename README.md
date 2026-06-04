@@ -13,6 +13,7 @@ Caso 05 es Command_Caso02.cs
 
 A continuación el código del archivo HolaRevit.addin
 
+ ``` 
 <?xml version="1.0" encoding="utf-8"?>
 <RevitAddIns>
 	<AddIn Type="Command">
@@ -24,7 +25,8 @@ A continuación el código del archivo HolaRevit.addin
 		<Text>Hola Revit</Text>
 	</AddIn>
 </RevitAddIns>
-
+ ``` 
+ 
 A continuación el código del proyecto:
 
 <Project Sdk="Microsoft.NET.Sdk">
