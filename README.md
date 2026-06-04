@@ -15,7 +15,7 @@ Para usar el código para cada caso es bueno entender que el código Command.cs 
 
 A continuación el código del archivo **HolaRevit.addin**
 
-```
+```xml
 <?xml version="1.0" encoding="utf-8"?>
 <RevitAddIns>
 	<AddIn Type="Command">
@@ -27,11 +27,11 @@ A continuación el código del archivo **HolaRevit.addin**
 		<Text>Hola Revit</Text>
 	</AddIn>
 </RevitAddIns>
-```xml
+```
  
 A continuación el **código del proyecto**:
 
-```
+```xml
 <Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
