@@ -13,7 +13,9 @@ Para usar el código para cada caso es bueno entender que el código Command.cs 
 
 <img width="717" height="534" alt="image" src="https://github.com/user-attachments/assets/f8229bd4-f7ac-4584-9422-e8e14c3949be" />
 
+
 A continuación el código del archivo **HolaRevit.addin**
+
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -28,8 +30,10 @@ A continuación el código del archivo **HolaRevit.addin**
 	</AddIn>
 </RevitAddIns>
 ```
+
  
 A continuación el **código del proyecto**:
+
 
 ```xml
 <Project Sdk="Microsoft.NET.Sdk">
