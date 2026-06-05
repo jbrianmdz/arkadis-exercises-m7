@@ -1,5 +1,6 @@
 # arkadis-exercises-m7
-Ejercicios para la Especialización internacional  BIM en Programación Visual y Automatización con IA
+**Módulo 07 - Desarrollo de Aplicaciones para Revit**
+**Ejercicios para la Especialización internacional  BIM en Programación Visual y Automatización con IA**
 
 **Software: Revit 2026**
 
