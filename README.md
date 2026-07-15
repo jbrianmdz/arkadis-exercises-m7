@@ -1,4 +1,3 @@
-<img width="694" height="534" alt="image" src="https://github.com/user-attachments/assets/5e492850-3834-4eb3-b6d8-280eedf10047" /># arkadis-exercises-m7
 **Módulo 07 - Desarrollo de Aplicaciones para Revit**
 **Ejercicios para la Especialización internacional  BIM en Programación Visual y Automatización con IA**
 
