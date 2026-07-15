@@ -22,12 +22,12 @@ A continuación el código del archivo **HolaRevit.addin**
 <?xml version="1.0" encoding="utf-8"?>
 <RevitAddIns>
 	<AddIn Type="Command">
-		<Name>Hola Revit</Name>
-		<Assembly>C:\Users\jbria\source\repos\HolaRevit\HolaRevit\bin\x64\Debug\net8.0-windows\HolaRevit.dll</Assembly>
-		<FullClassName>HolaRevit.Command</FullClassName>
-		<AddInId>BBAFB5FD-9727-47C8-A2DC-E01136F48413</AddInId>
+		<Name>Mi Primer Aplicacion</Name>
+		<Assembly>AppPrimerEjercicio\PrimerEjercicio.dll</Assembly>
+		<FullClassName>PrimerEjercicio.MiCodigo</FullClassName>
+		<AddInId>AF47E58F-B9D7-4212-9B1F-09660645C75C</AddInId>
 		<VendorId>BMM</VendorId>
-		<Text>Hola Revit</Text>
+		<Text>Mi Primer Aplicacion</Text>
 	</AddIn>
 </RevitAddIns>
 ```
@@ -40,36 +40,21 @@ A continuación el **código del proyecto**:
 	<PropertyGroup>
 		<TargetFramework>net8.0-windows</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
-		<Nullable>enable</Nullable>
-		<Platforms>AnyCPU;x64</Platforms>
-		<UseWPF>true</UseWPF>
-		<UseWindowsForms>true</UseWindowsForms>
-		<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
-	</PropertyGroup>
+		<!-- Desactivamos Nullable para eliminar las advertencias de advertencia CS8600 y CS8602 de golpe -->
+		<Nullable>disable</Nullable>
 
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-		<NoWarn>1701;1702; MSB3277</NoWarn>
-	</PropertyGroup>
+		<!-- Fuerza al proyecto a compilar en x64 -->
+		<Platforms>x64</Platforms>
+		<PlatformTarget>x64</PlatformTarget>
 
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-		<NoWarn>1701;1702; MSB3277</NoWarn>
-	</PropertyGroup>
-
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-		<NoWarn>1701;1702; MSB3277</NoWarn>
-	</PropertyGroup>
-
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-		<NoWarn>1701;1702; MSB3277</NoWarn>
+		<!-- Oculta las advertencias de conflictos de versiones en .NET 8 -->
+		<MSBuildWarningsAsMessages>MSB3276;MSB3277</MSBuildWarningsAsMessages>
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="EPPlus" Version="8.5.4">
-			<Private>true</Private>
-			<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
-		</PackageReference>
+		<PackageReference Include="EPPlus" Version="8.6.1" />
 	</ItemGroup>
-	
+
 	<ItemGroup>
 		<Reference Include="RevitAPI">
 			<HintPath>..\..\..\..\..\..\Program Files\Autodesk\Revit 2026\RevitAPI.dll</HintPath>
@@ -80,6 +65,35 @@ A continuación el **código del proyecto**:
 			<Private>False</Private>
 		</Reference>
 	</ItemGroup>
+
+	<!-- REPORTES POST-COMPILACIÓN -->
+	<Target Name="ShowBuildSummary" AfterTargets="Build">
+		<ItemGroup>
+			<RevitAPIRef Include="@(ReferencePath)" Condition="'%(FileName)' == 'RevitAPI'" />
+			<RevitAPIUIRef Include="@(ReferencePath)" Condition="'%(FileName)' == 'RevitAPIUI'" />
+			<EPPlusRef Include="@(ReferencePath)" Condition="$([System.String]::new('%(FileName)').StartsWith('EPPlus'))" />
+		</ItemGroup>
+
+		<Message Importance="High" Text=" " />
+		<Message Importance="High" Text="=======================================================================" />
+		<Message Importance="High" Text=" 🚀¡COMPILACIÓN COMPLETADA CON ÉXITO!" />
+		<Message Importance="High" Text=" 📂 ARCHIVO DLL GENERADO:" />
+		<Message Importance="High" Text=" 👉 $(TargetPath)" />
+		<Message Importance="High" Text="-----------------------------------------------------------------------" />
+		<Message Importance="High" Text=" 📚 VERIFICACIÓN DE REFERENCIAS Y PAQUETES:" />
+
+		<Message Importance="High" Text="   ✔️ RevitAPI cargada correctamente desde:" Condition="'@(RevitAPIRef)' != ''" />
+		<Message Importance="High" Text="      ↳ %(RevitAPIRef.FullPath)" Condition="'@(RevitAPIRef)' != ''" />
+
+		<Message Importance="High" Text="   ✔️ RevitAPIUI cargada correctamente desde:" Condition="'@(RevitAPIUIRef)' != ''" />
+		<Message Importance="High" Text="      ↳ %(RevitAPIUIRef.FullPath)" Condition="'@(RevitAPIUIRef)' != ''" />
+
+		<Message Importance="High" Text="   ✔️ EPPlus (NuGet) enlazado correctamente desde:" Condition="'@(EPPlusRef)' != ''" />
+		<Message Importance="High" Text="      ↳ %(EPPlusRef.FullPath)" Condition="'@(EPPlusRef)' != ''" />
+
+		<Message Importance="High" Text="=======================================================================" />
+		<Message Importance="High" Text=" " />
+	</Target>
 
 </Project>
 ```
