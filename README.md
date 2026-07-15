@@ -3,7 +3,7 @@
 
 **Software: Revit 2026**
 
-Para usar el código para cada caso es bueno entender que el código Command.cs se reparte de la siguiente manera:
+Para usar el código para cada caso es bueno entender que el código MiCodigo.cs se reparte de la siguiente manera:
 
 - **Caso 01** es MiCodigo_Caso01.cs
 - **Caso 02** es MiCodigo_Caso02.cs
