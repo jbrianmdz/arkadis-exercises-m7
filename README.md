@@ -1,4 +1,4 @@
-# arkadis-exercises-m7
+<img width="694" height="534" alt="image" src="https://github.com/user-attachments/assets/5e492850-3834-4eb3-b6d8-280eedf10047" /># arkadis-exercises-m7
 **Módulo 07 - Desarrollo de Aplicaciones para Revit**
 **Ejercicios para la Especialización internacional  BIM en Programación Visual y Automatización con IA**
 
@@ -12,10 +12,9 @@ Para usar el código para cada caso es bueno entender que el código Command.cs 
 - **Caso 04** es Command_Caso04.cs
 - **Caso 05** es Command_Caso05.cs
 
-<img width="717" height="534" alt="image" src="https://github.com/user-attachments/assets/f8229bd4-f7ac-4584-9422-e8e14c3949be" />
+<img width="694" height="534" alt="image" src="https://github.com/user-attachments/assets/68079aef-b0df-42f8-8a28-a0cb04c7cd4e" />
 
-
-A continuación el código del archivo **HolaRevit.addin**
+A continuación el código del archivo **InstructivoParaRevit.addin**
 
 
 ```xml
