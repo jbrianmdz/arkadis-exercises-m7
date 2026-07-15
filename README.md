@@ -5,11 +5,11 @@
 
 Para usar el código para cada caso es bueno entender que el código Command.cs se reparte de la siguiente manera:
 
-- **Caso 01** es Command_Caso01.cs
-- **Caso 02** es Command_Caso02.cs
-- **Caso 03** es Command_Caso03.cs
-- **Caso 04** es Command_Caso04.cs
-- **Caso 05** es Command_Caso05.cs
+- **Caso 01** es MiCodigo_Caso01.cs
+- **Caso 02** es MiCodigo_Caso02.cs
+- **Caso 03** es MiCodigo_Caso03.cs
+- **Caso 04** es MiCodigo_Caso04.cs
+- **Caso 05** es MiCodigo_Caso05.cs
 
 <img width="694" height="534" alt="image" src="https://github.com/user-attachments/assets/68079aef-b0df-42f8-8a28-a0cb04c7cd4e" />
 
