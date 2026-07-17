@@ -43,9 +43,11 @@ A continuación el **código del proyecto**:
 		<PlatformTarget>x64</PlatformTarget>
 		<MSBuildWarningsAsMessages>MSB3276;MSB3277</MSBuildWarningsAsMessages>
 
-		<!-- 👇 ESTA LÍNEA: fuerza a copiar EPPlus y todas sus dependencias al bin -->
+		<!-- Fuerza a copiar EPPlus y todas sus dependencias al bin -->
 		<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
-		<!-- 👇 Necesario para las ventanas WPF (Window, StackPanel, TextBox...) -->
+
+		<!-- Interfaces de usuario -->
+		<UseWindowsForms>true</UseWindowsForms>
 		<UseWPF>true</UseWPF>
 	</PropertyGroup>
 
@@ -65,8 +67,8 @@ A continuación el **código del proyecto**:
 	</ItemGroup>
 
 	<!-- ================================================================= -->
-	<!-- DESPLIEGUE AUTOMÁTICO A LA CARPETA DE ADD-INS DE REVIT 2026        -->
-	<!-- Crea la carpeta si no existe y copia TODO lo necesario.           -->
+	<!-- DESPLIEGUE AUTOMÁTICO + REPORTE POST-COMPILACIÓN                   -->
+	<!-- Crea la carpeta si no existe y copia TODO a Revit 2026.          -->
 	<!-- ================================================================= -->
 	<Target Name="DeployToRevit" AfterTargets="Build">
 
@@ -76,38 +78,37 @@ A continuación el **código del proyecto**:
 		</PropertyGroup>
 
 		<ItemGroup>
-			<!-- Todos los DLL de salida MENOS los de Revit (Revit ya los tiene) -->
+			<!-- Todos los DLL de salida MENOS los de Revit -->
 			<DeployFiles Include="$(TargetDir)*.dll"
-						 Exclude="$(TargetDir)RevitAPI.dll;$(TargetDir)RevitAPIUI.dll" />
-
-			<!-- deps.json: necesario para que .NET resuelva EPPlus y dependencias -->
+			             Exclude="$(TargetDir)RevitAPI.dll;$(TargetDir)RevitAPIUI.dll" />
+			<!-- deps.json: necesario para resolver EPPlus y dependencias -->
 			<DeployFiles Include="$(TargetDir)$(AssemblyName).deps.json" />
-
-			<!-- pdb: opcional, útil para depurar (líneas en el stack trace) -->
+			<!-- pdb: opcional, para líneas en el stack trace -->
 			<DeployFiles Include="$(TargetDir)$(AssemblyName).pdb" />
 		</ItemGroup>
 
-		<!-- 1) Crear las carpetas si no existen -->
+		<!-- 1) Crear carpetas si no existen -->
 		<MakeDir Directories="$(RevitAddins)" Condition="!Exists('$(RevitAddins)')" />
 		<MakeDir Directories="$(DeployFolder)" Condition="!Exists('$(DeployFolder)')" />
 
 		<!-- 2) Copiar el .addin a la raíz de Addins\2026 -->
 		<Copy SourceFiles="$(ProjectDir)InstructivoParaRevit.addin"
-			  DestinationFolder="$(RevitAddins)"
-			  SkipUnchangedFiles="true" />
+		      DestinationFolder="$(RevitAddins)"
+		      SkipUnchangedFiles="true" />
 
-		<!-- 3) Copiar tu DLL + EPPlus + dependencias a la subcarpeta -->
+		<!-- 3) Copiar DLL + EPPlus + dependencias a la subcarpeta -->
 		<Copy SourceFiles="@(DeployFiles)"
-			  DestinationFolder="$(DeployFolder)"
-			  SkipUnchangedFiles="true" />
+		      DestinationFolder="$(DeployFolder)"
+		      SkipUnchangedFiles="true" />
 
 		<!-- 4) Reporte -->
 		<Message Importance="High" Text=" " />
 		<Message Importance="High" Text="=======================================================================" />
-		<Message Importance="High" Text="📦 DESPLIEGUE A REVIT COMPLETADO" />
+		<Message Importance="High" Text="🚀 ¡COMPILACIÓN Y DESPLIEGUE COMPLETADOS!" />
+		<Message Importance="High" Text="   📄 DLL generado: $(TargetPath)" />
 		<Message Importance="High" Text="   📁 addin:   $(RevitAddins)\InstructivoParaRevit.addin" />
 		<Message Importance="High" Text="   📁 carpeta: $(DeployFolder)" />
-		<Message Importance="High" Text="   📄 copiados: @(DeployFiles->'%(Filename)%(Extension)', ', ')" />
+		<Message Importance="High" Text="   📦 copiados: @(DeployFiles->'%(Filename)%(Extension)', ', ')" />
 		<Message Importance="High" Text="=======================================================================" />
 		<Message Importance="High" Text=" " />
 
