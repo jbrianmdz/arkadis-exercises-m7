@@ -6,7 +6,7 @@ using System.Windows;            // WPF — requiere <UseWPF>true</UseWPF>
 using System.Windows.Controls;
 using System.Windows.Interop;    // Para que la ventana se quede sobre Revit
 
-namespace HolaRevit
+namespace PrimerEjercicio
 {
     // ==================================================================
     // CASO 4 - VENTANA PARA DIGITAR EL NIVEL
@@ -15,7 +15,7 @@ namespace HolaRevit
     // Construida 100% por código (sin XAML) para no añadir archivos.
     // ==================================================================
     [Transaction(TransactionMode.Manual)]
-    public class Command : IExternalCommand
+    public class MiCodigo : IExternalCommand
     {
         public Result Execute(
             ExternalCommandData commandData,
