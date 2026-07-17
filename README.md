@@ -38,15 +38,13 @@ A continuación el **código del proyecto**:
 	<PropertyGroup>
 		<TargetFramework>net8.0-windows</TargetFramework>
 		<ImplicitUsings>enable</ImplicitUsings>
-		<!-- Desactivamos Nullable para eliminar las advertencias de advertencia CS8600 y CS8602 de golpe -->
 		<Nullable>disable</Nullable>
-
-		<!-- Fuerza al proyecto a compilar en x64 -->
 		<Platforms>x64</Platforms>
 		<PlatformTarget>x64</PlatformTarget>
-
-		<!-- Oculta las advertencias de conflictos de versiones en .NET 8 -->
 		<MSBuildWarningsAsMessages>MSB3276;MSB3277</MSBuildWarningsAsMessages>
+
+		<!-- 👇 ESTA LÍNEA: fuerza a copiar EPPlus y todas sus dependencias al bin -->
+		<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -64,33 +62,53 @@ A continuación el **código del proyecto**:
 		</Reference>
 	</ItemGroup>
 
-	<!-- REPORTES POST-COMPILACIÓN -->
-	<Target Name="ShowBuildSummary" AfterTargets="Build">
+	<!-- ================================================================= -->
+	<!-- DESPLIEGUE AUTOMÁTICO A LA CARPETA DE ADD-INS DE REVIT 2026        -->
+	<!-- Crea la carpeta si no existe y copia TODO lo necesario.           -->
+	<!-- ================================================================= -->
+	<Target Name="DeployToRevit" AfterTargets="Build">
+
+		<PropertyGroup>
+			<RevitAddins>$(ProgramData)\Autodesk\Revit\Addins\2026</RevitAddins>
+			<DeployFolder>$(RevitAddins)\AppPrimerEjercicio</DeployFolder>
+		</PropertyGroup>
+
 		<ItemGroup>
-			<RevitAPIRef Include="@(ReferencePath)" Condition="'%(FileName)' == 'RevitAPI'" />
-			<RevitAPIUIRef Include="@(ReferencePath)" Condition="'%(FileName)' == 'RevitAPIUI'" />
-			<EPPlusRef Include="@(ReferencePath)" Condition="$([System.String]::new('%(FileName)').StartsWith('EPPlus'))" />
+			<!-- Todos los DLL de salida MENOS los de Revit (Revit ya los tiene) -->
+			<DeployFiles Include="$(TargetDir)*.dll"
+						 Exclude="$(TargetDir)RevitAPI.dll;$(TargetDir)RevitAPIUI.dll" />
+
+			<!-- deps.json: necesario para que .NET resuelva EPPlus y dependencias -->
+			<DeployFiles Include="$(TargetDir)$(AssemblyName).deps.json" />
+
+			<!-- pdb: opcional, útil para depurar (líneas en el stack trace) -->
+			<DeployFiles Include="$(TargetDir)$(AssemblyName).pdb" />
 		</ItemGroup>
 
+		<!-- 1) Crear las carpetas si no existen -->
+		<MakeDir Directories="$(RevitAddins)" Condition="!Exists('$(RevitAddins)')" />
+		<MakeDir Directories="$(DeployFolder)" Condition="!Exists('$(DeployFolder)')" />
+
+		<!-- 2) Copiar el .addin a la raíz de Addins\2026 -->
+		<Copy SourceFiles="$(ProjectDir)InstructivoParaRevit.addin"
+			  DestinationFolder="$(RevitAddins)"
+			  SkipUnchangedFiles="true" />
+
+		<!-- 3) Copiar tu DLL + EPPlus + dependencias a la subcarpeta -->
+		<Copy SourceFiles="@(DeployFiles)"
+			  DestinationFolder="$(DeployFolder)"
+			  SkipUnchangedFiles="true" />
+
+		<!-- 4) Reporte -->
 		<Message Importance="High" Text=" " />
 		<Message Importance="High" Text="=======================================================================" />
-		<Message Importance="High" Text=" 🚀¡COMPILACIÓN COMPLETADA CON ÉXITO!" />
-		<Message Importance="High" Text=" 📂 ARCHIVO DLL GENERADO:" />
-		<Message Importance="High" Text=" 👉 $(TargetPath)" />
-		<Message Importance="High" Text="-----------------------------------------------------------------------" />
-		<Message Importance="High" Text=" 📚 VERIFICACIÓN DE REFERENCIAS Y PAQUETES:" />
-
-		<Message Importance="High" Text="   ✔️ RevitAPI cargada correctamente desde:" Condition="'@(RevitAPIRef)' != ''" />
-		<Message Importance="High" Text="      ↳ %(RevitAPIRef.FullPath)" Condition="'@(RevitAPIRef)' != ''" />
-
-		<Message Importance="High" Text="   ✔️ RevitAPIUI cargada correctamente desde:" Condition="'@(RevitAPIUIRef)' != ''" />
-		<Message Importance="High" Text="      ↳ %(RevitAPIUIRef.FullPath)" Condition="'@(RevitAPIUIRef)' != ''" />
-
-		<Message Importance="High" Text="   ✔️ EPPlus (NuGet) enlazado correctamente desde:" Condition="'@(EPPlusRef)' != ''" />
-		<Message Importance="High" Text="      ↳ %(EPPlusRef.FullPath)" Condition="'@(EPPlusRef)' != ''" />
-
+		<Message Importance="High" Text="📦 DESPLIEGUE A REVIT COMPLETADO" />
+		<Message Importance="High" Text="   📁 addin:   $(RevitAddins)\InstructivoParaRevit.addin" />
+		<Message Importance="High" Text="   📁 carpeta: $(DeployFolder)" />
+		<Message Importance="High" Text="   📄 copiados: @(DeployFiles->'%(Filename)%(Extension)', ', ')" />
 		<Message Importance="High" Text="=======================================================================" />
 		<Message Importance="High" Text=" " />
+
 	</Target>
 
 </Project>
