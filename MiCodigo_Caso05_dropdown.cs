@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;   // WinForms — requiere <UseWindowsForms>true</UseWindowsForms>
 
-namespace HolaRevit
+namespace PrimerEjercicio
 {
     // ==================================================================
     // CASO 5 - DROPDOWN DE NIVELES CON WinForms
@@ -13,10 +13,12 @@ namespace HolaRevit
     // ComboBox (desplegable) que muestra TODOS los niveles del proyecto.
     // El usuario selecciona uno y se crea el muro en ese nivel.
     //
-    // IMPORTANTE: añade <UseWindowsForms>true</UseWindowsForms> al .csproj.
+    // NOTA: como el proyecto tiene WPF y WinForms activos a la vez,
+    // los tipos ambiguos (Label, Button) van calificados con
+    // System.Windows.Forms. para evitar el error CS0104.
     // ==================================================================
     [Transaction(TransactionMode.Manual)]
-    public class Command : IExternalCommand
+    public class MiCodigo : IExternalCommand
     {
         public Result Execute(
             ExternalCommandData commandData,
@@ -54,7 +56,7 @@ namespace HolaRevit
             };
 
             // Etiqueta arriba
-            Label lbl = new Label
+            System.Windows.Forms.Label lbl = new System.Windows.Forms.Label
             {
                 Text = "Selecciona el nivel:",
                 Left = 15,
@@ -83,7 +85,7 @@ namespace HolaRevit
             form.Controls.Add(combo);
 
             // Botón "Crear"
-            Button btnOk = new Button
+            System.Windows.Forms.Button btnOk = new System.Windows.Forms.Button
             {
                 Text = "Crear Muro",
                 Left = 15,
@@ -93,7 +95,7 @@ namespace HolaRevit
             form.Controls.Add(btnOk);
 
             // Botón "Cancelar"
-            Button btnCancel = new Button
+            System.Windows.Forms.Button btnCancel = new System.Windows.Forms.Button
             {
                 Text = "Cancelar",
                 Left = 245,
