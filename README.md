@@ -45,6 +45,8 @@ A continuación el **código del proyecto**:
 
 		<!-- 👇 ESTA LÍNEA: fuerza a copiar EPPlus y todas sus dependencias al bin -->
 		<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+		<!-- 👇 Necesario para las ventanas WPF (Window, StackPanel, TextBox...) -->
+		<UseWPF>true</UseWPF>
 	</PropertyGroup>
 
 	<ItemGroup>
